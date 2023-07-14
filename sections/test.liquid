@@ -1,0 +1,48 @@
+{% comment %} <ul>
+{% for collection in collections %}
+<li>{{- collection.title | link_to: collection.url }}</li>
+{% endfor %}
+</ul> {% endcomment %}
+
+{% assign settings = section.settings %}
+<h1 class="text-center text-3xl font-bold mb-4">{{ settings.title }}</h1>
+<div class="columns-3">
+  {% for block in section.blocks %}
+    <div class="image-card" {{ block.shopify_attributes }}>
+      {{ block.settings.image | image_url: width: 1080 | image_tag }}
+      <p class="text-center">{{ block.settings.title }}</p>
+    </div>
+  {% endfor %}
+</div>
+
+{% schema %}
+  {
+    "name": "Image Test Section",
+    "class": "card-item my-8",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title of the section"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Slide",
+        "type": "slide",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          }, {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          }
+
+        ]
+      }
+    ]
+  }
+{% endschema %}
